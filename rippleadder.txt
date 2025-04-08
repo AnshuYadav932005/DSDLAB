@@ -1,4 +1,4 @@
-module FullAdder(sum,cin,a,b,cin); 
+module FullAdder(sum,cout,a,b,cin); 
 input a,b,cin; 
 output sum, cout; 
 assign sum=a^b^cin; 
