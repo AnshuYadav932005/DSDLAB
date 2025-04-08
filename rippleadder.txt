@@ -1,3 +1,17 @@
+// Module Name:    FullAdder 
+/*module FullAdder(sum, c_out, i1, i2,c_in); 
+    output sum; 
+    output c_out; 
+    input i1; 
+    input i2; 
+    input c_in; 
+    wire s1,c1,c2; 
+    halfadder HA1(s1, c1, i1, i2);  
+    halfadder HA2(sum, c2 ,s1,c_in); 
+    or(c_out,c1,c2); 
+endmodule
+*/
+
 
 module FullAdder(sum,cout,a,b,cin); 
 input a,b,cin; 
