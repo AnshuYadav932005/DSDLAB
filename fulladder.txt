@@ -1,5 +1,6 @@
 
-(ii) Behavioural Modeling 
+
+//(ii) Behavioural Modeling 
 module Full_Adder ( 
     input A,        // First input bit 
     input B,        // Second input bit 
@@ -8,11 +9,17 @@ module Full_Adder (
     output reg Cout // Carry output 
 ); 
  
-// Behavioral modeling using always block 
     always @(*) begin 
         Sum = A ^ B ^ Cin;              // XOR for Sum 
         Cout = (A & B) | (B & Cin) | (Cin & A); // OR of three AND gates for Carry 
     end 
+endmodule 
+
+module halfadder(s,c,a,b); 
+input a,b; 
+output s,c; 
+assign s=a^b; 
+assign c=a&b; 
 endmodule 
 
 // Module Name:    FullAdder 
@@ -23,17 +30,18 @@ module FullAdder(sum, c_out, i1, i2,c_in);
     input i2; 
     input c_in; 
     wire s1,c1,c2; 
-    HalfAdder HA1(s1, c1, i1, i2);  
-    HalfAdder HA2(sum, c2 ,s1,c_in); 
-or(c_out,c1,c2); 
+    halfadder HA1(s1, c1, i1, i2);  
+    halfadder HA2(sum, c2 ,s1,c_in); 
+    or(c_out,c1,c2); 
 endmodule
 
 module FA_TB; 
 reg a, b, c; 
 wire sum, carry; 
 // Instantiate the Unit Under Test (UUT) 
-FA_structural uut (.a(a), .b(b),.c(c), .sum(sum), .carry(carry)); 
-initial begin 
+FullAdder uut(sum,carry,a,b,c); 
+initial 
+begin 
 // Initialize Inputs 
 a = 0; b = 0; c=0; 
 #100 a = 0; b = 0; c=1; 
@@ -44,4 +52,4 @@ a = 0; b = 0; c=0;
 #100 a = 1; b = 1; c=0; 
 #100 a = 1; b = 1; c=1; 
 end 
-endmodul 
+endmodule
