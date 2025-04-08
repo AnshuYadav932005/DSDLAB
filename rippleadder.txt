@@ -1,51 +1,19 @@
-module full_adder (
-    input  wire a,     // First input bit
-    input  wire b,     // Second input bit
-    input  wire cin,   // Carry-in
-    output wire sum,   // Sum output
-    output wire cout   // Carry-out
-);
-    assign sum  = a ^ b ^ cin;
-    assign cout = (a & b) | (b & cin) | (a & cin);
-endmodule
+module FullAdder(sum,cin,a,b,cin); 
+input a,b,cin; 
+output sum, cout; 
+assign sum=a^b^cin; 
+assign cout=(a&cin)|(b&cin)|(a&b); 
+endmodule 
 
 
-module ripple_carry_adder_4bit (
-    input  wire [3:0] a,     // First 4-bit input
-    input  wire [3:0] b,     // Second 4-bit input
-    input  wire       cin,   // Initial carry-in
-    output wire [3:0] sum,   // 4-bit sum output
-    output wire       cout   // Final carry-out
-);
-    wire c1, c2, c3; // Intermediate carry wires
-
-    // Instantiate four full adders
-    full_adder fa0 (
-        .a(a[0]),
-        .b(b[0]),
-        .cin(cin),
-        .sum(sum[0]),
-        .cout(c1)
-    );
-    full_adder fa1 (
-        .a(a[1]),
-        .b(b[1]),
-        .cin(c1),
-        .sum(sum[1]),
-        .cout(c2)
-    );
-    full_adder fa2 (
-        .a(a[2]),
-        .b(b[2]),
-        .cin(c2),
-        .sum(sum[2]),
-        .cout(c3)
-    );
-    full_adder fa3 (
-        .a(a[3]),
-        .b(b[3]),
-        .cin(c3),
-        .sum(sum[3]),
-        .cout(cout)
-    );
+module adder_4bit (S, Cout, A, B); 
+input [3:0] A ; 
+input [3:0] B ;  
+output [3:0]S ; 
+output Cout ; 
+wire [3:1]C; 
+FullAdder FA0(S[0],C[1],A[0],B[0],1'b0); 
+FullAdder FA1(S[1],C[2],A[1],B[1],C[1]); 
+FullAdder FA2(S[2],C[3],A[2],B[2],C[2]); 
+FullAdder FA3(S[3],Cout,A[3],B[3],C[3]); 
 endmodule
