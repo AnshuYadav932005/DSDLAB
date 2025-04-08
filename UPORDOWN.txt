@@ -1,0 +1,37 @@
+
+ 
+module upordown_counter(  Clk,    reset,   UpOrDown,     Count  ); 
+   input Clk,reset,UpOrDown; 
+   output [3 : 0] Count; 
+   reg [3 : 0] Count = 0;   
+    always @(posedge(Clk) or posedge(reset)) 
+     begin 
+        if(reset == 1)  
+            Count <= 0; 
+        else     
+            if(UpOrDown == 1)   //Up mode selected 
+                if(Count == 15) 
+                    Count <= 0; 
+                else 
+                    Count <= Count + 1; //Increment Counter 
+            else  //Down mode selected 
+                if(Count == 0) 
+                    Count <= 15; 
+                else 
+                    Count <= Count - 1; //Decrement counter 
+     end     
+    endmodule 
+ 
+
+module tb_asyncount(); 
+reg Clk=1'b0,reset=1'b0,UpOrDown; 
+wire [3 : 0] Count;   
+upordown_counter uut(  Clk,    reset,   UpOrDown,     Count  ); 
+always  #1 Clk=~Clk; 
+always  #60 reset=~reset;  
+initial 
+begin 
+UpOrDown=1; 
+#120 UpOrDown=0; 
+end 
+endmodule

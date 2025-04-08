@@ -1,0 +1,53 @@
+module fa(sum,cout,a,b,cin);
+input a,b,cin;
+output reg sum,cout;
+always @(*)
+begin
+	sum=a^b^cin;
+	cout=(a&b)|cin&(a^b);
+end 
+endmodule
+
+module fourba(sum,cout,a,b,cin);
+input [3:0]a,b;
+input cin;
+output reg [3:0]sum;
+output reg cout;
+always @(*)
+begin
+	{cout,sum}=a+b+cin;
+end 
+endmodule
+
+module mul(p,a,b);
+
+input [3:0]a,b;
+wire [23:1]w;
+output [7:0]p;
+
+and g1(p[0],a[0],b[0]);
+and g2(w[1],a[1],b[0]);
+and g3(w[2],a[2],b[0]);
+and g4(w[3],a[3],b[0]);
+and g5(w[4],a[0],b[1]);
+and g6(w[5],a[1],b[1]);
+and g7(w[6],a[2],b[1]);
+and g8(w[7],a[3],b[1]);
+and g9(w[8],a[0],b[2]);
+and g10(w[9],a[1],b[2]);
+and g11(w[10],a[2],b[2]);
+and g12(w[11],a[3],b[2]); 
+and g13(w[12],a[0],b[3]);
+and g14(w[13],a[1],b[3]);
+and g15(w[14],a[2],b[3]);
+and g16(w[15],a[3],b[3]);
+
+fourba f1({w[18],w[17],w[16],p[1]},w[19],{w[7],w[6],w[5],w[4]},{1'b0,w[3],w[2],w[1]},1'b0);
+fourba f2({w[22],w[21],w[20],p[2]},w[23],{w[19],w[18],w[17],w[16]},{w[11],w[10],w[9],w[8]},1'b0);
+fourba f3({p[6],p[5],p[4],p[3]},p[7],{w[15],w[14],w[13],w[12]},{w[23],w[22],w[21],w[20]},1'b0);
+
+
+
+
+endmodule
+
