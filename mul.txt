@@ -1,22 +1,22 @@
-module fa(sum,cout,a,b,cin);
-input a,b,cin;
-output reg sum,cout;
-always @(*)
-begin
-	sum=a^b^cin;
-	cout=(a&b)|cin&(a^b);
-end 
-endmodule
+module FullAdder(sum,cin,a,b,cin); 
+input a,b,cin; 
+output sum, cout; 
+assign sum=a^b^cin; 
+assign cout=(a&cin)|(b&cin)|(a&b); 
+endmodule 
 
-module fourba(sum,cout,a,b,cin);
-input [3:0]a,b;
+
+module adder_4bit (S, Cout, A, B,cin); 
+input [3:0] A ; 
+input [3:0] B ; 
 input cin;
-output reg [3:0]sum;
-output reg cout;
-always @(*)
-begin
-	{cout,sum}=a+b+cin;
-end 
+output [3:0]S ; 
+output Cout ; 
+wire [3:1]C; 
+FullAdder FA0(S[0],C[1],A[0],B[0],cin); 
+FullAdder FA1(S[1],C[2],A[1],B[1],C[1]); 
+FullAdder FA2(S[2],C[3],A[2],B[2],C[2]); 
+FullAdder FA3(S[3],Cout,A[3],B[3],C[3]); 
 endmodule
 
 module mul(p,a,b);
