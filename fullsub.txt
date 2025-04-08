@@ -1,4 +1,4 @@
-Data Flow Modeling 
+//Data Flow Modeling 
 module  fs(diff,borrow,a,b,bin); 
 output diff,borrow; 
 input a,b,bin; 
@@ -6,7 +6,7 @@ assign diff=(~a&~b&bin) | (~a&b&~bin) | (a&~b&~bin) | (a&b&bin);
 assign borrow=(~a&b)| (~a&bin) | (b&bin); 
 endmodule 
  
-(ii) Behavioural Modeling 
+//(ii) Behavioural Modeling 
 module FullSubtractor ( 
 input A,         // Minuend 
 input B,         // Subtrahend 
@@ -22,11 +22,11 @@ always @ (A or B or Bin) begin
 end 
 endmodule 
  
-(iii) Verification using Test Bench 
+//(iii) Verification using Test Bench 
 module fullsub_tb(); 
 wire diff,borrow; 
 reg a,b,bin; 
-fullstruct uut(diff,borrow,a,b,bin); 
+fs uut(diff,borrow,a,b,bin); 
 initial 
 begin 
 a=0;b=0;bin=0; 
