@@ -1,12 +1,4 @@
 
- 
- 
- 
- 
- 
- 
- 
- 
 (ii) Behavioural Modeling 
 module Full_Adder ( 
     input A,        // First input bit 
